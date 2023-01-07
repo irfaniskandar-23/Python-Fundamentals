@@ -13,7 +13,7 @@ def calculate_daily_sale(data):
         date, item, quantity, price = line.split()
         date_key = daily_sale_dict.get(date, None)
 
-        if date_key is not None:
+        if date_key:
             if item in daily_sale_dict:
                 daily_sale_dict[date][item] += float(price) * int(quantity)
             else:
@@ -51,7 +51,7 @@ def get_total_sale(daily_sale):
 
 if __name__ == '__main__':
     try:
-        with open('input.txt') as file:
+        with open('input.txt', 'rt') as file:
             data = [line.strip() for line in file]
 
         daily_sale = calculate_daily_sale(data)
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     finally:
         file.close()
 
-    daily_sale_frame = pd.DataFrame.from_dict(daily_sale, orient='index', columns=[
-                                              'Item_A', 'Item_B', 'Item_C', 'Item_D'])
+    # daily_sale_frame = pd.DataFrame.from_dict(daily_sale, orient='index', columns=[
+    #                                           'Item_A', 'Item_B', 'Item_C', 'Item_D'])
 
-    daily_sale_frame = daily_sale_frame.replace(np.nan, 0.0)
-    print(tabulate(daily_sale_frame, headers='keys', tablefmt='psql'))
+    # daily_sale_frame = daily_sale_frame.replace(np.nan, 0.0)
+    # print(tabulate(daily_sale_frame, headers='keys', tablefmt='psql'))
